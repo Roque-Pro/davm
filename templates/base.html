@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{{ page_title or "Dashboard" }}</title>
+
+  <!-- CSS principal (em /static/styles.css). O parâmetro ?v=1 ajuda a evitar cache em dev. -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=1">
+
+  <!-- Plotly (CDN) para gráficos no navegador -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <h1 class="title">{{ page_title or "Dashboard" }}</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

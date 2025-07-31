@@ -1,0 +1,35 @@
+# Python / venv
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pid
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs/temp
+*.log
+*.tmp
+*.cache/
+
+# Ambiente/local
+.env
+.env.*
+
+# Flask
+instance/
+
+# Jupyter (se usar no futuro)
+.ipynb_checkpoints/
+
+# Dados (opcional)
+# Se quiser versionar os CSVs do Olist, comente as linhas abaixo.
+# Se mantiver, os CSVs não subirão e você precisará explicar no README como baixar.
+data/*.zip
+data/*.parquet
+# data/*.csv

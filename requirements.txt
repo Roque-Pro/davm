@@ -1,0 +1,6 @@
+Flask==3.0.3
+pandas==2.2.3
+plotly==6.1.1
+gunicorn==22.0.0
+reportlab==4.2.2
+kaleido==1.0.0

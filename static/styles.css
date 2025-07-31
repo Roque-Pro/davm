@@ -1,0 +1,265 @@
+/* ===========================
+   Tema base e reset simples
+   =========================== */
+:root {
+  --bg: #0b0d12;
+  --panel: #111827;
+  --border: #1f2937;
+  --text: #e7e9ee;
+  --muted: #9aa4b2;
+
+  --primary: #2563eb;  /* azul botão CSV */
+  --success: #16a34a;  /* verde botão PDF */
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container principal dentro do <main> */
+main.container {
+  max-width: 1280px;      /* largura confortável em desktop */
+  margin: 0 auto;
+  padding: 0 16px;
+  height: calc(100vh - 64px);  /* 64px ~= topbar + borda */
+  overflow: hidden;            /* sem rolagem em desktop */
+}
+
+/* ===========================
+   Topbar
+   =========================== */
+.topbar { background: #0f1320; border-bottom: 1px solid #1c2230; }
+.topbar-inner { display: flex; align-items: center; min-height: 56px; }
+.topbar-inner { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;   /* <-- centraliza horizontalmente */
+  min-height: 56px; 
+}
+
+.title { 
+  font-size: 20px; 
+  margin: 0; 
+  font-weight: 700; 
+  text-align: center;         /* garante centralização do texto */
+}
+.title { font-size: 20px; margin: 0; font-weight: 700; }
+
+/* ===========================
+   GRID do Dashboard (desktop)
+   =========================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-areas:
+    "filters filters"
+    "period  period"      /* <- linha dedicada */
+    "kpis    extras"
+    "chart1  chart2"
+    "chart1  chart3";
+  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-rows: auto auto auto 1fr 1fr;  /* extra 'auto' p/ period */
+  gap: 14px;
+  height: 100%;
+  min-height: 0;
+}
+
+
+/* ===========================
+   Filtros e Ações
+   =========================== */
+.filters-row {
+  grid-area: filters;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.filters-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  margin: 8px 0 0 0;
+}
+.filters-left label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+.filters-left input[type="date"] {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.btn-apply {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0f172a;
+  color: var(--text);
+  cursor: pointer;
+}
+.btn-apply:hover { filter: brightness(1.08); }
+
+.filters-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.btn-export, .btn-pdf {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-export { background: var(--primary); color: #fff; }
+.btn-pdf { background: var(--success); color: #fff; }
+.btn-export:hover, .btn-pdf:hover { filter: brightness(1.12); }
+
+/* ===========================
+   Resumo do período
+   =========================== */
+.period-hint {
+  grid-area: filters;     /* fica abaixo dos filtros, sem criar outra linha */
+  justify-self: start;
+  align-self: start;
+  margin: 44px 0 0 0;     /* empurra um pouco para baixo abaixo dos campos */
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ===========================
+   KPIs e Extras
+   =========================== */
+.kpis {
+  grid-area: kpis;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  min-height: 0;
+}
+.kpi {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.kpi-label { font-size: 13px; color: var(--muted); }
+.kpi-value { font-size: 22px; font-weight: 800; }
+
+.extras {
+  grid-area: extras;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  min-height: 0;
+}
+.extra {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.extra-label { font-size: 13px; color: var(--muted); }
+.extra-value { font-size: 18px; font-weight: 700; }
+
+/* ===========================
+   Cartões de gráfico
+   =========================== */
+.chart-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 0;    /* IMPORTANTÍSSIMO para permitir altura 100% dos charts */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden; /* evita barras internas */
+}
+.chart-card h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Mapeamento das áreas dos gráficos */
+#chart1-card { grid-area: chart1; }
+#chart2-card { grid-area: chart2; }
+#chart3-card { grid-area: chart3; }
+
+/* Containers Plotly ocupam 100% da altura do card */
+#chart1, #chart2, #chart3 {
+  width: 100%;
+  height: 100%;
+  min-height: 0;  /* necessário para calc de 100% funcionar dentro do grid */
+}
+
+/* ===========================
+   Responsividade (telas menores)
+   =========================== */
+@media (max-width: 1024px) {
+  /* Em tablets/celulares, liberamos rolagem e empilhamos */
+  main.container {
+    height: auto;
+    overflow: auto;
+    padding-bottom: 24px;
+  }
+
+  .dashboard-grid {
+    grid-template-areas:
+      "filters"
+      "kpis"
+      "extras"
+      "chart1"
+      "chart2"
+      "chart3";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto auto;
+    height: auto;
+  }
+
+  .period-hint {
+    margin: 8px 0 0 0;
+  }
+
+  .kpis { grid-template-columns: 1fr; }
+  .extras { grid-template-columns: 1fr; }
+
+  /* Altura fixa razoável pra charts em mobile */
+  #chart1, #chart2, #chart3 { height: 380px; }
+}
+
+@media (max-width: 520px) {
+  .filters-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .filters-actions {
+    justify-content: stretch;
+  }
+  .btn-export, .btn-pdf, .btn-apply { width: 100%; }
+}

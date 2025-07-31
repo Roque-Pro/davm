@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="dashboard-grid">
+    <!-- LINHA DE FILTROS + AÇÕES -->
+    <section class="filters-row">
+      <form method="get" class="filters-left">
+        <label>
+          Início
+          <input type="date" name="start" value="{{ start_dt }}" min="{{ min_dt }}" max="{{ max_dt }}">
+        </label>
+        <label>
+          Fim
+          <input type="date" name="end" value="{{ end_dt }}" min="{{ min_dt }}" max="{{ max_dt }}">
+        </label>
+        <button type="submit" class="btn-apply">Aplicar</button>
+      </form>
+
+      <div class="filters-actions">
+        <a href="{{ url_for('export', start=start_dt, end=end_dt) }}" class="btn-export">Exportar CSV</a>
+        <a href="{{ url_for('export_pdf', start=start_dt, end=end_dt) }}" class="btn-pdf">Exportar PDF</a>
+      </div>
+    </section>
+
+    <!-- NOVA LINHA DEDICADA AO PERÍODO -->
+    <section class="period-row">
+      <p class="period-hint">
+        Período: <strong>{{ start_dt }}</strong> a <strong>{{ end_dt }}</strong>
+      </p>
+    </section>
+
+    <!-- KPIs -->
+    <section class="kpis">
+      <div class="kpi">
+        <span class="kpi-label">Receita</span>
+        <span class="kpi-value">{{ kpi.revenue }}</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">Pedidos</span>
+        <span class="kpi-value">{{ kpi.orders }}</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">Ticket Médio</span>
+        <span class="kpi-value">{{ kpi.avg_ticket }}</span>
+      </div>
+    </section>
+
+    <!-- MÉTRICAS EXTRAS -->
+    <section class="extras">
+      <div class="extra">
+        <span class="extra-label">Prazo médio (dias)</span>
+        <span class="extra-value">{{ extras.avg_delivery_days }}</span>
+      </div>
+      <div class="extra">
+        <span class="extra-label">% entregas no prazo</span>
+        <span class="extra-value">{{ extras.pct_on_time }}%</span>
+      </div>
+    </section>
+
+    <!-- GRÁFICOS -->
+    <section id="chart1-card" class="chart-card">
+      <h2>Receita Mensal</h2>
+      <div id="chart1"></div>
+    </section>
+
+    <section id="chart2-card" class="chart-card">
+      <h2>Top 10 Categorias (Receita)</h2>
+      <div id="chart2"></div>
+    </section>
+
+    <section id="chart3-card" class="chart-card">
+      <h2>Pedidos por UF</h2>
+      <div id="chart3"></div>
+    </section>
+  </div>
+
+  <!-- Renderização Plotly -->
+  <script>
+    const fig1 = {{ graph1JSON | safe }};
+    const fig2 = {{ graph2JSON | safe }};
+    const fig3 = {{ graph3JSON | safe }};
+    Plotly.newPlot('chart1', fig1.data, fig1.layout, {responsive: true});
+    Plotly.newPlot('chart2', fig2.data, fig2.layout, {responsive: true});
+    Plotly.newPlot('chart3', fig3.data, fig3.layout, {responsive: true});
+  </script>
+
+{% endblock %}
