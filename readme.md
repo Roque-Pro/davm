@@ -36,3 +36,35 @@ E o mais importante: tudo **na mesma tela**, sem precisar rolar (desktop) e com 
    ```bash
    git clone https://github.com/seu-usuario/advpy.git
    cd advpy
+
+
+
+
+   Crie um ambiente virtual e instale as dependências:
+
+python -m venv .venv
+source .venv/bin/activate   # Linux/Mac
+.venv\Scripts\activate      # Windows
+
+pip install -r requirements.txt
+
+Rode o app:
+
+flask --app app run
+
+ou, se preferir:
+
+py app.py
+
+Acesse no navegador:
+
+    http://127.0.0.1:5000
+
+🔥 Features legais (e algumas tretas)
+
+    Dashboard 100% responsivo (não precisa rolar no desktop)
+
+    PDF: exporta os gráficos bonitinhos em páginas separadas
+    (se der erro no Kaleido, atualiza o Plotly ou instala o Chrome manualmente)
+
+    Filtros de data não quebram mais (eu espero 🤞)
