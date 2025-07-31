@@ -40,7 +40,7 @@ E o mais importante: tudo **na mesma tela**, sem precisar rolar (desktop) e com 
 
 
 
-   Crie um ambiente virtual e instale as dependências:
+## Crie um ambiente virtual e instale as dependências:
 
 python -m venv .venv
 source .venv/bin/activate   # Linux/Mac
@@ -60,7 +60,7 @@ Acesse no navegador:
 
     http://127.0.0.1:5000
 
-🔥 Features legais (e algumas tretas)
+## 🔥 Features legais (e algumas tretas)
 
     Dashboard 100% responsivo (não precisa rolar no desktop)
 
